@@ -6,6 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define('recipe', {
     id:{
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull:false,
       primaryKey: true,
     },
@@ -13,10 +14,24 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    resume:{
+    summary:{
       type:DataTypes.STRING,
       allowNull:false,
     },
+    healthScore : {
+      type: DataTypes.INTEGER,
+      allowNull:true,
+    },
+    spoonacularScore : {
+      type: DataTypes.INTEGER,
+      allowNull:true,
+    },
+    
+    analyzedInstructions:{
+      type : DataTypes.STRING,
+      allowNull:true,
+    },
+    
     createdInBd:{
       type: DataTypes.BOOLEAN,
       allowNull:false,

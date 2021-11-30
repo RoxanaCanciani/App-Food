@@ -11,10 +11,11 @@ const {json} = require('body-parser');
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.get('/recipes', async (req, res) => {
-    const apiInfo= await getAllRecipes();
-    res.json(apiInfo);
-    });
+// router.get('/recipes', async (req, res) => {
+//     const apiInfo= await getAllRecipes();
+//     res.json(apiInfo);
+//     });
+
 
 
 
@@ -26,6 +27,8 @@ router.get("/recipes", async (req, res)=>{
     
     recipeName.length ?
         res.status(200).send(recipeName): res.status(404).send("No existe ninguna receta con ese nombre")
+    }else{
+        res.status(200).send(totalRecipes);
     }
 })
 
@@ -73,7 +76,7 @@ router.post('/recipe', async (req,res) => {
         
     } = req.body;
     if(!name || !summary) {
-        return res.status(400).send('Insert a name and a summary to continue');
+        return res.status(400).send('Inserte un nombre y una descripcion para continuar') ;
     }
     
 let createRecipe = await Recipe.create({
@@ -87,7 +90,7 @@ let createRecipe = await Recipe.create({
 })
 let dietTypeDb = await Diets.findAll({ where:{ name:dietTypes } })
     createRecipe.addDiets(dietTypeDb)
-    res.status(200).send('Recipe created successfully')   
+    res.status(200).send('Receta creada exitosamente')  
 
 
 });
@@ -95,18 +98,3 @@ let dietTypeDb = await Diets.findAll({ where:{ name:dietTypes } })
 
 
 module.exports = router;
-// router.post('/pokemons', async (req, res)=>{
-//     let {name, height, weight, types, stats} = req.body;
-  
-//     let pokemonCreated = await Pokemon.create ({
-//       name, height, weight, stats
-//     })
-  
-//   // busca los Tipos cargados
-//     let tipoDb = await Tipo.findAll({
-//       where: { name : types }
-//     })
-//     pokemonCreated.addTipo(tipoDb);
-  
-//     res.send('Pokemon created successfully.')
-//   });

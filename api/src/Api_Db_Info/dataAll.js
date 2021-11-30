@@ -8,7 +8,7 @@ const axios= require('axios');
 
 
 const getApiInfo= async()=>{
-    const apiUrl = await axios.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=5107f5cac80c443a973709919c419c3f&number=100&addRecipeInformation=true");
+    const apiUrl = await axios.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=036e3cd4d5d94756a9eb16db58682da4&number=100&addRecipeInformation=true");
    
     const apiInfo= await apiUrl.data.results.map(el=>{
         
@@ -17,9 +17,7 @@ const getApiInfo= async()=>{
         id: el.id,
         image: el.image,
         dishTypes: el.dishTypes.map(el=>el),//tipo de plato
-        
         dietTypes: el.diets.map(el=>el),//tipo de dieta
-       
         summary: el.summary, //resumen
         healthScore: el.healthScore, //puntuacion
         nivelHealth: el.spoonacularScore,// nivel de comida saludable

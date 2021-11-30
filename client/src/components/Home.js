@@ -2,10 +2,11 @@ import React, { Fragment } from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getRecipes,filterByDietTypes} from '../actions'
+import {getRecipes,filterByDietTypes,orderByName,orderByScore} from '../actions'
 import { Link } from 'react-router-dom';
 import Card from './Card';
 import Paged from './Paged';
+import SearchBar from './SearchBar';
 
 function Home() {
    
@@ -17,14 +18,15 @@ const allRecipes = useSelector((state) => state.recipes )
 //const dietTypes = useSelector((state) => state.dietTypes )
 
 
-    //  useEffect(() => {
-    //      dispatch(getRecipes());
-    //  }, [dispatch]);
+    
 
     useEffect(() => {
         dispatch(getRecipes())   // hook del matchDispatchToProps()
     },[dispatch]);
 
+
+     const[order,setOrder] =useState('') 
+     const[orderScore,setOrderScore] =useState('')
      const[currentPage, setCurrentPage] = useState(1);
      const[recipesPerPage, setRecipesPerPage] = useState(9);
      const lastRecipe = currentPage * recipesPerPage;
@@ -41,13 +43,28 @@ const allRecipes = useSelector((state) => state.recipes )
         e.preventDefault();
         dispatch(getRecipes());
     }
-    // function handleFilterByDietTypes(e){
-    //     dispatch(filterByDietTypes(e.target.value))
-    //}
+    
 
     function handleFilterByDietTypes (e) {
+        e.preventDefault();
         dispatch(filterByDietTypes(e.target.value))
     }
+
+    function handleSortName(e){
+        e.preventDefault();
+        dispatch(orderByName(e.target.value))
+        setCurrentPage(1);//resetea la pagina a 1
+        setOrder(`Ordenado ${e.target.value}`)//es un estado que me setea el orden
+    }
+
+    function handleSortScore(e){
+        e.preventDefault();
+        dispatch(orderByScore(e.target.value))
+        setCurrentPage(1);//resetea la pagina a 1
+        setOrderScore(`Ordenado ${e.target.value}`)//es un estado que me setea el orden
+    }
+
+
 
     return (
         <div>
@@ -56,15 +73,15 @@ const allRecipes = useSelector((state) => state.recipes )
             </Link>
             <h1>Recetas</h1>
             
-            <button onClick={handleClick}>volver a cargar las recetas</button> {/*creo una funcion para que cuando haga click en el boton, se ejecute la funcion handleClick*/}
+            <button onClick={e=>handleClick(e) }>volver a cargar las recetas</button> {/*creo una funcion para que cuando haga click en el boton, se ejecute la funcion handleClick*/}
         <div>
-         <select>
+         <select onChange={e=>handleSortName(e) }>
              <option value="asc(a-z)"> Por orden alfabetico ascendente</option>
              <option value="desc(z-a)">Por orden alfabetico descendente</option> {/*creo un select para ordenar las recetas por orden alfabetico */}
          </select>
         </div>
         <div>
-        <select>
+        <select onChange={e=>handleSortScore(e)}>
             <option value="asc(men-may)">Puntuacion de menor a mayor</option>
             <option value="desc(may-men)">Puntuacion de mayor a menor</option>
         </select>
@@ -83,6 +100,7 @@ const allRecipes = useSelector((state) => state.recipes )
                 <option value="primal">Primal</option>
                 <option value="low fodmap">Low Fodmap</option>
                 <option value="whole 30">Whole 30</option>
+                <option value="dairy free">Dairy Free</option>
          </select>
 
         </div>
@@ -91,6 +109,7 @@ const allRecipes = useSelector((state) => state.recipes )
         allRecipes={allRecipes.length}
         paged={paged}/>
 
+        <SearchBar />
         </div>
          {
         currentRecipes?.map((el) => {

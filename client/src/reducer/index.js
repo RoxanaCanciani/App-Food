@@ -1,42 +1,6 @@
 
 
 
-// const initialState = {
-//     recipes: [],
-//     allRecipes : [],
-//     details : [],
-//     dietTypes :[]
-
-    
-// };
-
-
-// const rootReducer=(state = initialState, action)=>{
-//  switch(action.type){
-//             case 'GET_RECIPES':
-//                 return {
-//                     ...state,
-//                     recipes: action.payload,
-                   
-                    
-                   
-
-//                    }
-//                 //    case 'FILTER_BY_DIETTYPES':
-//                 //        const allRecipe = state.allRecipes;
-//                 //        const filteredRecipes =action.payload==='all'?allRecipe: 
-                    
-
-//                 // }
-
-
-                   
-                   
-               
-
-//     }
-
-// }
 
 export const initialState = {
     recipes: [],
@@ -54,8 +18,7 @@ function rootReducer (state=initialState, action) {
                 ...state,
                 recipes: action.payload, 
                 allRecipes: action.payload,
-                
-            }
+                }
 
         case 'FILTER_BY_DIETTYPES':
             const allRecipe = state.allRecipes;
@@ -65,22 +28,91 @@ function rootReducer (state=initialState, action) {
                 ...state,
                 recipes: filteredRecipes,
                 dietTypes: action.payload
+               }
+        
 
+        case 'ORDER_BY_NAME' :
+            let order = action.payload === 'asc(a-z)' ? 
+            state.recipes.sort(function(a,b) {
+                
+                if(a.name> b.name) {
+                  
+                    return 1;
+                }
+                if( b.name > a.name){
+                    return -1;
+                }
+                return 0;
+            }) : 
+            state.recipes.sort(function(a,b) {
+                if(a.name > b.name) {
+                    return -1;
+                }
+                if( b.name > a.name){
+                    return 1;
+                }
+                return 0;
+            })
+            return{
+                ...state ,
+                recipes : order
+
+        }
+
+        case 'ORDER_BY_SCORE':
+            let orderScore = action.payload === 'asc(men-may)' ?
+            state.recipes.sort(function(a, b){
+                if(a.nivelHealth > b.nivelHealth) {
+                  
+                    return 1;
+                }
+                if( b.nivelHealth > a.nivelHealth){
+                    return -1;
+                }
+                return 0;
+            }) : 
+            state.recipes.sort(function(a,b) {
+                if(a.nivelHealth > b.nivelHealth) {
+                    return -1;
+                }
+                if( b.nivelHealth > a.nivelHealth){
+                    return 1;
+                }
+                return 0;
+            })
+            return{
+                ...state ,
+                recipes : orderScore
+
+        }
+
+        case 'GET_RECIPES_BY_NAME':
+            return {
+                ...state,
+                recipes: action.payload,
+            }
+
+        case 'GET_RECIPES_BY_ID':
+            return {
+                ...state,
+                details: action.payload,
+            }
+
+        case 'GET_DIET_TYPES':
+            return {
+                ...state,
+                dietTypes: action.payload,
+
+            }  
+            
+        case 'POST_RECIPE':
+            return {
+                ...state,
+                
+            }    
 
             
-            }
-        // const allRec = state.allRecipes
-        // // const allRec = state.recipes
-        // console.log(allRec);
         
-        // const typeDietFilter = action.payload === 'All' ? allRec : allRec.filter(e =>  e.dietTypes  === action.payload )   
-        // console.log(action.payload);
-        
-        // return{
-        //         ...state ,
-        //         recipes : typeDietFilter
-
-        // }
         default:
             return state;
     }

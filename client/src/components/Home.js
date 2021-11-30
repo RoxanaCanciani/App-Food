@@ -1,25 +1,53 @@
 import React, { Fragment } from 'react';
-//import {useState} from 'react';
+import {useState} from 'react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getRecipes} from '../actions'
-//import { connect } from 'react-redux';
+import {getRecipes,filterByDietTypes} from '../actions'
 import { Link } from 'react-router-dom';
 import Card from './Card';
+import Paged from './Paged';
 
 function Home() {
    
-     const dispatch = useDispatch(); 
-     const allRecipes = useSelector(state => state.recipes); 
+    //  const dispatch = useDispatch(); 
+    //  const allRecipes = useSelector(state => state.recipes); 
      
-     useEffect(() => {
-         dispatch(getRecipes());
-     }, [dispatch]);
+    const dispatch = useDispatch();
+const allRecipes = useSelector((state) => state.recipes )
+//const dietTypes = useSelector((state) => state.dietTypes )
 
-    function handleClick(e) {//me resetea el state, trae todo de nuevo
+
+    //  useEffect(() => {
+    //      dispatch(getRecipes());
+    //  }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(getRecipes())   // hook del matchDispatchToProps()
+    },[dispatch]);
+
+     const[currentPage, setCurrentPage] = useState(1);
+     const[recipesPerPage, setRecipesPerPage] = useState(9);
+     const lastRecipe = currentPage * recipesPerPage;
+     const firstRecipe = lastRecipe - recipesPerPage;
+     const currentRecipes = allRecipes.slice(firstRecipe, lastRecipe);
+     console.log(currentRecipes);
+
+     const paged = (pageNumber) => {
+            setCurrentPage(pageNumber);
+        }
+
+
+    function handleClick(e) {
         e.preventDefault();
         dispatch(getRecipes());
-    }console.log(allRecipes);
+    }
+    // function handleFilterByDietTypes(e){
+    //     dispatch(filterByDietTypes(e.target.value))
+    //}
+
+    function handleFilterByDietTypes (e) {
+        dispatch(filterByDietTypes(e.target.value))
+    }
 
     return (
         <div>
@@ -42,8 +70,8 @@ function Home() {
         </select>
         </div>
         <div>
-         <select>
-                <option value="all">Tipos de dieta</option>
+         <select onChange={e => handleFilterByDietTypes(e)}  >
+                <option value="All">Todos los tipos de dieta</option>
                 <option value="gluten free">Gluten Free</option>
                 <option value="ketogenic">Ketogenic</option>
                 <option value="vegetarian">Vegetarian</option>
@@ -58,8 +86,14 @@ function Home() {
          </select>
 
         </div>
+        <div>
+        <Paged recipesPerPage={recipesPerPage} 
+        allRecipes={allRecipes.length}
+        paged={paged}/>
+
+        </div>
          {
-        allRecipes?.map((el) => {
+        currentRecipes?.map((el) => {
             return(
                 <Fragment>
             
@@ -75,6 +109,7 @@ function Home() {
 
     )
     
+
     
 
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 const GET_RECIPES = 'GET_RECIPES';
+const FILTER_BY_DIETTYPES='FILTER_BY_DIETTYPES'
 
 
 export function getRecipes(){
@@ -8,9 +9,22 @@ export function getRecipes(){
         var json = await axios.get("http://localhost:3001/recipes");
         return dispatch({
             type : GET_RECIPES,
-            payload: json.data
-           
+            payload: json.data,
+            
         }) 
     }  
 } 
-console.log(getRecipes());
+
+
+
+
+export function filterByDietTypes (payload){
+  console.log(payload)
+    return(
+        {
+            type:FILTER_BY_DIETTYPES,
+            payload
+        })
+    
+}
+

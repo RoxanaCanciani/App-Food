@@ -15,20 +15,20 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     summary:{
-      type:DataTypes.STRING,
+      type:DataTypes.TEXT,
       allowNull:false,
     },
     healthScore : {
       type: DataTypes.INTEGER,
       allowNull:true,
     },
-    spoonacularScore : {
+    nivelHealth : {
       type: DataTypes.INTEGER,
       allowNull:true,
     },
     
-    analyzedInstructions:{
-      type : DataTypes.STRING,
+    stepByStep:{
+      type : DataTypes.TEXT,
       allowNull:true,
     },
     

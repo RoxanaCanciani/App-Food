@@ -7,7 +7,7 @@ export const initialState = {
     allRecipes : [],
     details : [],
     dietTypes :[],
-    types:[]
+    
 }
 console.log('esto es el estado type diets',initialState.dietTypes);
 

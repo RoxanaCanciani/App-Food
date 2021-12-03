@@ -8,6 +8,7 @@ import Card from './Card';
 import Paged from './Paged';
 import SearchBar from './SearchBar';
 
+
 function Home() {
    
     //  const dispatch = useDispatch(); 
@@ -71,6 +72,9 @@ const allRecipes = useSelector((state) => state.recipes )
             <Link to="/recipe">
                 Crea tu propia receta
             </Link>
+            <br />
+
+            
             <h1>Recetas</h1>
             
             <button onClick={e=>handleClick(e) }>volver a cargar las recetas</button> {/*creo una funcion para que cuando haga click en el boton, se ejecute la funcion handleClick*/}
@@ -92,7 +96,7 @@ const allRecipes = useSelector((state) => state.recipes )
                 <option value="gluten free">Gluten Free</option>
                 <option value="ketogenic">Ketogenic</option>
                 <option value="vegetarian">Vegetarian</option>
-                <option value="lacto-vegetarian">Lacto-Vegetarian</option>
+                <option value="lacto-vegetarian">Lacto Vegetarian</option>
                 <option value="lacto ovo vegetarian">Lacto Ovo Vegetarian</option>
                 <option value="vegan">Vegan</option>
                 <option value="pescatarian">Pescatarian</option>
@@ -110,6 +114,8 @@ const allRecipes = useSelector((state) => state.recipes )
         paged={paged}/>
 
         <SearchBar />
+        <br />
+        
         </div>
          {
         currentRecipes?.map((el) => {

@@ -48,15 +48,28 @@ if(theRecipe){
     router.get('/types', async (req,res) => {
        console.log(diets)
             diets.forEach(e => {
-                Diets.findOrCreate({
-                    where: {name:e.name}
+                Diets.findOrCreate({//busca si existe el elemento en la base de datos
+                    where: {name: e.name }
                 })
             })
             
-             const allTheTypes = await Diets.findAll();
+             const allTheTypes = await Diets.findAll();//trae todos los tipos de dieta
             res.send(allTheTypes)
             
     })
+
+    // router.get('/types', async (req,res) => {
+    //     console.log(diets);
+    //         diets.forEach(e => {
+    //             Diets.findOrCreate({
+    //                 where: {name:e.name}
+    //             })
+    //         })
+    
+    //          const allTheTypes = await Diets.findAll();
+    //         res.send(allTheTypes.map(e => e.name))
+    // })
+    
     
 
 
@@ -69,9 +82,9 @@ router.post('/recipe', async (req,res) => {
         name,
         summary,
         healthScore,
-        spoonacularScore,
+        nivelHealth,
         stepByStep,
-        createdInDb,
+        createdInBd,
         dietTypes,
         
     } = req.body;
@@ -84,12 +97,13 @@ let createRecipe = await Recipe.create({
         name,
         summary,
         healthScore,
-        spoonacularScore,
+        nivelHealth,
         stepByStep,
-        createdInDb,
+        createdInBd,
 })
-let dietTypeDb = await Diets.findAll({ where:{ name:dietTypes } })
-    createRecipe.addDiets(dietTypeDb)
+let dietTypeDb = await Diets.findAll({ //busca todos los tipos de dieta
+    where:{ name:dietTypes } })//busca los tipos de dieta en la base de datos
+    createRecipe.addDiets(dietTypeDb)//agrega los tipos de dieta a la receta que estoy creando
     res.status(200).send('Receta creada exitosamente')  
 
 

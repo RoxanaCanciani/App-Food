@@ -13,12 +13,13 @@ export default function SearchBar() {
 function handleInputChange(e) {
     e.preventDefault ();
     setSearchName(e.target.value);
-
+    
    }
 
     function handleSubmit(e) {
         e.preventDefault();
         dispatch(getRecipesByName(searchName));
+        setSearchName("");
     }
 
     return (

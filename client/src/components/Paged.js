@@ -1,4 +1,5 @@
 import React from "react";
+import styles from './Paged.module.css'
 
 export default function Paged({recipesPerPage,allRecipes, paged}){
     const pageNumbers = [];
@@ -8,10 +9,10 @@ export default function Paged({recipesPerPage,allRecipes, paged}){
     
     return(
         <nav>
-            <ul className='paged'>
+            <ul className={styles.ul}>
                 { pageNumbers?.map(number => (
-                    <li className='number' key={number}>
-                    <a onClick={()=> paged(number)} >{number}</a>
+                    <li  key={number}>
+                    <a className={styles.container}  onClick={()=> paged(number)} >{number}</a>
                     </li>
                 ))}
                 </ul>

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Card from './Card';
 import Paged from './Paged';
 import SearchBar from './SearchBar';
-
+import styles from './Home.module.css'
 
 function Home() {
    
@@ -68,30 +68,33 @@ const allRecipes = useSelector((state) => state.recipes )
 
 
     return (
-        <div>
+        <div className={styles.bkg}>
             <Link to="/recipe">
-                Crea tu propia receta
+            <button className={styles.create}>Crear receta </button>
             </Link>
             <br />
 
             
             <h1>Recetas</h1>
             
-            <button onClick={e=>handleClick(e) }>volver a cargar las recetas</button> {/*creo una funcion para que cuando haga click en el boton, se ejecute la funcion handleClick*/}
+            <button onClick={e=>handleClick(e) } className={styles.refresh}>volver a cargar las recetas</button> {/*creo una funcion para que cuando haga click en el boton, se ejecute la funcion handleClick*/}
         <div>
-         <select onChange={e=>handleSortName(e) }>
+            <br />
+         <select onChange={e=>handleSortName(e) } className={styles.select}>
              <option value="asc(a-z)"> Por orden alfabetico ascendente</option>
              <option value="desc(z-a)">Por orden alfabetico descendente</option> {/*creo un select para ordenar las recetas por orden alfabetico */}
          </select>
         </div>
+        <br />
         <div>
-        <select onChange={e=>handleSortScore(e)}>
+        <select onChange={e=>handleSortScore(e)} className={styles.select}>
             <option value="asc(men-may)">Puntuacion de menor a mayor</option>
             <option value="desc(may-men)">Puntuacion de mayor a menor</option>
         </select>
         </div>
+        <br />
         <div>
-         <select onChange={e => handleFilterByDietTypes(e)}  >
+         <select onChange={e => handleFilterByDietTypes(e)} className={styles.select} >
                 <option value="All">Todos los tipos de dieta</option>
                 <option value="gluten free">Gluten Free</option>
                 <option value="ketogenic">Ketogenic</option>
@@ -106,17 +109,24 @@ const allRecipes = useSelector((state) => state.recipes )
                 <option value="whole 30">Whole 30</option>
                 <option value="dairy free">Dairy Free</option>
          </select>
-
+    
         </div>
-        <div>
+        <br />
+        <div className={styles.paginado}>
         <Paged recipesPerPage={recipesPerPage} 
         allRecipes={allRecipes.length}
         paged={paged}/>
 
-        <SearchBar />
+        </div>
+        
+            <SearchBar />
+    
+        
         <br />
         
-        </div>
+       
+        <div className={styles.cards}>
+
          {
         currentRecipes?.map((el) => {
             return(
@@ -128,7 +138,7 @@ const allRecipes = useSelector((state) => state.recipes )
                 </Fragment>
                 
         )})} 
-        
+        </div>
         </div>
 
 
@@ -158,3 +168,10 @@ export default Home;
     
 
 
+//Analia de la Torre11:13
+{/* <label>Types:</label>
+<select onChange={(e)=> handleSelect(e)}>
+    { types.map((typ) => (
+        <option value={typ.name}>{typ.name}</option>
+        ))}
+</select> */}

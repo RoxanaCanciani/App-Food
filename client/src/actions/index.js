@@ -71,16 +71,7 @@ export function getRecipesById(id){
         }
 }
 
-// export function getRecipesById (id){
-    
-//     return async function(dispatch){
-//         var json = await axios.get(`http://localhost:3001/recipes/${id}`);
-//     return dispatch( {
-//         type : GET_RECIPES_BY_ID,
-//         payload: json.data
-//     })
-// }
-// }
+
 
 export function getDietTypes(){
     return async function(dispatch){

@@ -5,15 +5,16 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import {postRecipes,getDietTypes} from "../actions";
 import { Link } from "react-router-dom";
+import styles from './RecipeCreated.module.css'
 
 function validate(input){
     let errors = {};
     console.log(errors)
     if(!input.name){
-        errors.name = "Se requiere un nombre";
+        errors.name = "A name is required";
     }
     if(!input.summary){
-        errors.summary = "Se requiere una descripción";
+        errors.summary = "A summary is required";
     }
     
     return errors;
@@ -66,14 +67,14 @@ console.log(dietTypes);
     function handleDelete(e){
         setInput({
             ...input,
-            dietTypes:input.dietTypes.filter(dietType => dietType !== e)
+            dietTypes:input.dietTypes?.filter(dietType => dietType !== e)
         })
     }
 
     function handleSubmit(e){
         e.preventDefault();
         dispatch(postRecipes(input))
-        alert('¡Su receta ha sido creada!')
+        alert('¡Successfully created recipe!')
         setInput({
             name :'',
             summary:'',
@@ -86,57 +87,60 @@ console.log(dietTypes);
     }
 
     return (
-        <div>
-            <Link to="/home">Volver</Link>
-            <h1>Crea tu propia receta</h1>
-            <form  onSubmit={e=>handleSubmit(e)}>
+        
+
+        <div className={styles.bkg} >
+            <br /><br /><br /><br /><br /><br /><br />
+          <Link to="/home"><h4>Go back</h4></Link>
+            <div className={styles.title} ><h1>Create your own repice</h1></div>
+            <form className={styles.form} onSubmit={e=>handleSubmit(e)}>
                 <div>
-                  <label>Nombre:</label>
+                  <label><h4>Name:</h4></label>
                   <input type="text" value={input.name} name ="name"
                    onChange={e=>handleChange(e)} />
-                    {errors.name && <p>{errors.name}</p>}
+                    {errors.name && <p >{errors.name}</p>}
 
                 </div>
                 <div>
-                  <label>Resumen:</label>
+                  <label><h4>Summary:</h4> </label>
                   <input type="text" value={input.summary} name ="summary"
                   onChange={e=>handleChange(e)}/>
-                    {errors.summary && <p>{errors.summary}</p>}
+                    {errors.summary && <p >{errors.summary}</p>}
                 </div>
                 <div>
-                  <label>Puntaje de salud:</label>
+                  <label><h4>Health Score:</h4></label>
                   <input type="text" value={input.healthScore} name ="healthScore"
                   onChange={e=>handleChange(e)}/>
                 </div>
                 <div>
-                  <label>Nivel de salud:</label>
+                  <label><h4>Health Nivel:</h4></label>
                   <input type="text" value={input.nivelHealth} name ="nivelHealth"
                   onChange={e=>handleChange(e)}/>
                 </div>
                 <div>
-                  <label>Paso a paso:</label>
+                  <label><h4>Step by step:</h4></label>
                   <input type="text" value={input.stepByStep} name ="stepByStep"
                   onChange={e=>handleChange(e)}/>
                 </div>
-               
+               <br />
           
                    <select onChange={e=>handleSelect(e)}>
                     {dietTypes?.map((d) => {
                     
-                    return <option value={d.name}> {d.name} </option>
+                    return <option value={d.name}>{d.name} </option>
                     
                     })}
                     
                 </select > 
                 
               
-               {errors.hasOwnProperty('name') || errors.hasOwnProperty('summary')?  <p>Por favor complete los campos de nombre y resumen para poder crear su receta</p> : <button type='submit'>Cree su receta</button>  }  
+               {errors.hasOwnProperty('name') || errors.hasOwnProperty('summary')?  <p>Please complete the required fields</p> : <button type='submit'>Create</button>  }  
               
             </form>
-            {input.dietTypes.map(el=>
+            {input.dietTypes?.map(el=>
                 <div>
-                    <p>{el}</p>
-                    <button onClick={()=>{handleDelete(el)}}>X</button>
+                    <p className={styles.types}  >{el}</p>
+                    <button className={styles.btnx} onClick={()=>{handleDelete(el)}}>X</button>
                 </div>
                 )}
         </div>

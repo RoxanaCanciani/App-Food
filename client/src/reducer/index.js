@@ -22,7 +22,7 @@ function rootReducer (state=initialState, action) {
 
         case 'FILTER_BY_DIETTYPES':
             const allRecipe = state.allRecipes;
-            const filteredRecipes =action.payload==='all'?allRecipe:
+            const filteredRecipes =action.payload==='All'?allRecipe:
             allRecipe.filter(recipe => recipe.dietTypes?.includes(action.payload))
             return {
                 ...state,
@@ -30,7 +30,7 @@ function rootReducer (state=initialState, action) {
                 dietTypes: action.payload
                }
         
-
+        
         case 'ORDER_BY_NAME' :
             let order = action.payload === 'asc(a-z)' ? 
             state.recipes.sort(function(a,b) {

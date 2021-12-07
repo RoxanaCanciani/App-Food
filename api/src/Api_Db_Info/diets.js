@@ -4,7 +4,7 @@ const diets = [{name: 'gluten free'},{name: 'ketogenic'},{name: 'vegetarian'},{n
 {name: 'low fodmap'},
 {name: 'whole 30'}];
 
-//  const diets = ['gluten free','ketogenic','vegetarian','lacto-vegetarian',
+//  const dietTypes = ['gluten free','ketogenic','vegetarian','lacto-vegetarian',
 //  'lacto ovo vegetarian','vegan','pescatarian','paleolithic',
 //  'primal','diary free',
 //  'low fodmap',

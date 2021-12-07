@@ -6,19 +6,10 @@ const router = Router();
 // Ejemplo: const authRouter = require('./auth.js');
 const diets =require('../Api_Db_Info/diets') ;
 const {getAllRecipes}=require('../Api_Db_Info/dataAll');
-const {Diets,Recipe}=require('../db');
+const {DietTypes,Recipe}=require('../db');
 const {json} = require('body-parser');
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
-
-
-
-
-
-
-
-
 
 
 
@@ -37,17 +28,7 @@ router.get("/recipes", async (req, res)=>{
 
 
 
-// router.get('/recipes/:id', async (req, res)=>{
-// const {id}=req.params;
-// let totalRecipes= await getAllRecipes();
 
-// let theRecipe= totalRecipes.find(r=>r.id===parseInt(id))
-// if(theRecipe){
-//     res.status(200).send(theRecipe)  
-// }else{
-//     res.status(404).send("The recipe does not exist")
-// }
-// })
 
 
 
@@ -60,8 +41,8 @@ router.get('/recipes/:id',async (req,res) =>{
 
     if (validate) {
       try {
-        let dbId = await Recipe.findByPk(id, { include: Diets });  // entonce la busco directo de la base de datos
-        res.status(200).json(dbId);
+        let dbId = await Recipe.findByPk(id, { include: DietTypes });  // entonce la busco directo de la base de datos
+        res.status(200).json([dbId]);
       } catch (err) {
         console.log(err);
       }
@@ -89,15 +70,16 @@ else {
  
 
     router.get('/types', async (req,res) => {
-       console.log(diets)
+       
             diets.forEach(e => {
-                Diets.findOrCreate({//busca si existe el elemento en la base de datos
-                    where: {name: e.name }
+                DietTypes.findOrCreate({//busca si existe el elemento en la base de datos
+                    where: {e : e.name }
                 })
             })
             
-             const allTheTypes = await Diets.findAll();//trae todos los tipos de dieta
-            res.send(allTheTypes)
+             const allTheTypes = await DietTypes.findAll();//trae todos los tipos de dieta
+            //res.send(allTheTypes)
+            res.send(allTheTypes.map(e => e.name))
             
     })
 
@@ -134,9 +116,9 @@ let createRecipe = await Recipe.create({
         stepByStep,
         createdInBd,
 })
-let dietTypeDb = await Diets.findAll({ //busca todos los tipos de dieta
+let dietTypeDb = await DietTypes.findAll({ //busca todos los tipos de dieta
     where:{ name:dietTypes } })//busca los tipos de dieta en la base de datos
-    createRecipe.addDiets(dietTypeDb)//agrega los tipos de dieta a la receta que estoy creando
+    createRecipe.addDietTypes(dietTypeDb)//agrega los tipos de dieta a la receta que estoy creando
     res.status(200).send('Recipe successfully created')  
 
 
@@ -145,3 +127,5 @@ let dietTypeDb = await Diets.findAll({ //busca todos los tipos de dieta
 
 
 module.exports = router;
+
+

@@ -23,11 +23,12 @@ function rootReducer (state=initialState, action) {
         case 'FILTER_BY_DIETTYPES':
             const allRecipe = state.allRecipes;
             const filteredRecipes =action.payload==='All'?allRecipe:
-            allRecipe.filter(recipe => recipe.dietTypes?.includes(action.payload))
+            allRecipe.filter(t => t.dietTypes.find(e =>  e.name === action.payload ))
+            console.log(action.payload)
             return {
                 ...state,
                 recipes: filteredRecipes,
-                dietTypes: action.payload
+                
                }
         
         

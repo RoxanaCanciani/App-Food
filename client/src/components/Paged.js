@@ -9,7 +9,7 @@ export default function Paged({recipesPerPage,allRecipes, paged}){
     
     return(
         <nav>
-            <ul className={styles.ul}>
+            <ul className={styles.paged}>
                 { pageNumbers?.map(number => (
                     <li  key={number}>
                     <a className={styles.container}  onClick={()=> paged(number)} >{number}</a>

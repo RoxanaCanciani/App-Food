@@ -9,14 +9,14 @@ import Paged from './Paged';
 import SearchBar from './SearchBar';
 import styles from './Home.module.css'
 
+
 function Home() {
    
-    //  const dispatch = useDispatch(); 
-    //  const allRecipes = useSelector(state => state.recipes); 
+   
      
     const dispatch = useDispatch();
 const allRecipes = useSelector((state) => state.recipes )
-//const dietTypes = useSelector((state) => state.dietTypes )
+
 
 
     
@@ -68,16 +68,16 @@ const allRecipes = useSelector((state) => state.recipes )
 
 
     return (
-        <div className={styles.bkg}>
+        <div className={styles.home}>
             <Link to="/recipe">
             <button className={styles.create}>Crear receta </button>
             </Link>
             <br />
 
             
-            <h1>Recetas</h1>
+            <div className={styles.recetas}><h1>Recetas</h1></div>
             
-            <button onClick={e=>handleClick(e) } className={styles.refresh}>volver a cargar las recetas</button> {/*creo una funcion para que cuando haga click en el boton, se ejecute la funcion handleClick*/}
+            <button onClick={e=>handleClick(e) } className={styles.refresh}>Volver a cargar las recetas</button> {/*creo una funcion para que cuando haga click en el boton, se ejecute la funcion handleClick*/}
         <div>
             <br />
          <select onChange={e=>handleSortName(e) } className={styles.select}>
@@ -152,26 +152,4 @@ export default Home;
 
 
     
-    //     function mapStateToProps(state) {
-    //         return {
-    //             recipes: state.recipes
-    //         }
-    //     }
-    //     function mapDispatchToProps(dispatch) {
-    //         return {
-    //             getRecipes: () => dispatch(getRecipes())
-    //         }
-    //     }
-    
-    
-    // export default connect(mapStateToProps, mapDispatchToProps)(Home);
-    
-
-
-//Analia de la Torre11:13
-{/* <label>Types:</label>
-<select onChange={(e)=> handleSelect(e)}>
-    { types.map((typ) => (
-        <option value={typ.name}>{typ.name}</option>
-        ))}
-</select> */}
+        

@@ -27,7 +27,7 @@ export default function RecipeCreated() {
     const dietTypes = useSelector(state => state.dietTypes);//me permite obtener el state de redux
     const[errors, setErrors] = useState({});
     
-console.log(dietTypes);
+//console.log(dietTypes);
     const[input,setInput] = useState({
 
         name:"",
@@ -90,44 +90,45 @@ console.log(dietTypes);
         
 
         <div className={styles.bkg} >
-            <br /><br /><br /><br /><br /><br /><br />
-          <Link to="/home"><h4>Go back</h4></Link>
-            <div className={styles.title} ><h1>Create your own repice</h1></div>
+           <div className={styles.container} >
+          <Link to="/home"><h2>Go back</h2></Link>
+           
+            <div><h1>Create your own repice</h1></div>
             <form className={styles.form} onSubmit={e=>handleSubmit(e)}>
                 <div>
-                  <label><h4>Name:</h4></label>
+                  <h4>Name:</h4>
                   <input type="text" value={input.name} name ="name"
                    onChange={e=>handleChange(e)} />
                     {errors.name && <p >{errors.name}</p>}
-
                 </div>
                 <div>
-                  <label><h4>Summary:</h4> </label>
-                  <input type="text" value={input.summary} name ="summary"
+
+                  <h4>Summary:</h4> 
+                  <input  type="text" value={input.summary} name ="summary"
                   onChange={e=>handleChange(e)}/>
                     {errors.summary && <p >{errors.summary}</p>}
                 </div>
                 <div>
-                  <label><h4>Health Score:</h4></label>
-                  <input type="text" value={input.healthScore} name ="healthScore"
+                  <h4>Health Score:</h4>
+                  <input  type="text" value={input.healthScore} name ="healthScore"
                   onChange={e=>handleChange(e)}/>
                 </div>
                 <div>
-                  <label><h4>Health Nivel:</h4></label>
+                  <h4>Health Nivel:</h4>
                   <input type="text" value={input.nivelHealth} name ="nivelHealth"
                   onChange={e=>handleChange(e)}/>
                 </div>
                 <div>
-                  <label><h4>Step by step:</h4></label>
+                  <h4>Step by step:</h4>
                   <input type="text" value={input.stepByStep} name ="stepByStep"
                   onChange={e=>handleChange(e)}/>
                 </div>
-               <br />
+               
           
                    <select onChange={e=>handleSelect(e)}>
                     {dietTypes?.map((d) => {
                     
-                    return <option value={d.name}>{d.name} </option>
+                    return <option value={d}>{d} </option>
                     
                     })}
                     
@@ -138,11 +139,11 @@ console.log(dietTypes);
               
             </form>
             {input.dietTypes?.map(el=>
-                <div>
-                    <p className={styles.types}  >{el}</p>
-                    <button className={styles.btnx} onClick={()=>{handleDelete(el)}}>X</button>
+                <div className={styles.boton}>
+                    <p >{el}<button  onClick={()=>{handleDelete(el)}}>X</button></p>
                 </div>
-                )}
+                )} 
+        </div>
         </div>
     )
 

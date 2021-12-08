@@ -1,31 +1,16 @@
-.bkg{
-    /*background-image: url('../imagenes/36038.jpg');*/
-    background-color: #f3f5f4;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment:fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    /* display: flex; */
-    /* flex-direction: column; */
-    
-}
+
 .select{
-  background: rgb(186, 216, 156);
+  background:  #afeaf1;
   cursor: pointer;
   display:inline-block;
   justify-content: center;
   text-align: center;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 0.5px;
   border-style: groove;
 }
 .cards{
     display: grid;
-    /* align-items:center; */
-    /* padding: 30px; */
     justify-content: center;
     grid-template-columns: 25% 25% 25% 25%;
     gap: 20px;
@@ -48,30 +33,31 @@ font-size: 20px;
 
 }
 .refresh{
-  -webkit-border-radius: 10;
-  -moz-border-radius: 10;
-  border-radius: 10px;
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
   font-family: italic;
   color: #000000;
   font-size: 14px;
-  background: rgb(193, 215, 233);
+  background:   #f8c7cb;
   padding:  3px 13px 3px 13px ;
   text-decoration: none;
   
 }
 .input{
-  background-color: #e6d57e;
+  background-color: #ca96b0;
 }
 .create{
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
-  border-radius: 10px;
+  border-radius: 5px;
   font-family: italic;
   color: #000000;
-  font-size: 14px;
-  background: rgb(193, 228, 187);
-  padding:  3px 13px 3px 13px ;
+  font-size: 20px;
+  background: #73e1f0;
+  padding:  6px 16px 6px 16px ;
   text-decoration: none;
+  
 }
 .search{
   display: flex;
@@ -83,11 +69,11 @@ font-size: 20px;
 .btnsearch {
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
-  border-radius: 10px;
+  border-radius: 0.5px;
   font-family: italic;
   color: #000000;
   font-size: 14px;
-  background: #e6d57e;
+  background:  #94ecc3;
   padding:  3px 13px 3px 13px ;
   text-decoration: none;
 }
@@ -98,16 +84,26 @@ font-size: 20px;
   cursor: pointer;
 }
 .create:hover {
-  background: #d8e66c;
+  background: #e4eca3;
   text-decoration: none;
   cursor: pointer;
 }
 .refresh:hover {
-  background: #d8e66c;
+  background: #e4eca3;
   text-decoration: none;
   cursor: pointer;
-
-
-
-  
 }
+ .recetas{
+   font-family: dosis;
+   font-size: 30px;
+    color: rgb(80, 80, 61);
+ }
+
+ .home{
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 1px;
+ }
